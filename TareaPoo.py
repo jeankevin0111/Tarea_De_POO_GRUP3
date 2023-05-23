@@ -34,7 +34,7 @@ class Producto:
 ################################################################################################################
 class Tienda:
     def __init__(self):
-        self.productos = []
+        self.productos = [ Producto("Marcadores", "papeleria", 50, 10, 10),Producto("Atún", "supermercado", 100, 20, 5),Producto("Paracetamol", "drogueria", 80, 15, 3),Producto("Graduador", "papeleria", 30, 5, 20)]
         self.procesos= []
         self.dinero=0
         self.usuario=None
@@ -125,7 +125,7 @@ class Tienda:
 
         if len(self.procesos) == 0:
             print("\033[30;43;1m"+"No se han realizado ventas."+"\033[0;m")
-            time.sleep(2)
+            input()
             print("--------------------------------------")
             return
         Ventas_individuales = {}
@@ -140,12 +140,10 @@ class Tienda:
             total_ventas += CantidadVentas * producto.calcular_precio_final()
             numero_producto_vendido += CantidadVentas
 
-            if mas_vendido is None or CantidadVentas > Ventas_individuales.get(mas_vendido.nombre,
-                                                                                         0):
+            if mas_vendido is None or CantidadVentas > Ventas_individuales.get(mas_vendido.nombre,0):
                 mas_vendido = producto
 
-            if menos_vendido is None or CantidadVentas < Ventas_individuales.get(
-                    menos_vendido.nombre, float('inf')):
+            if menos_vendido is None or CantidadVentas < Ventas_individuales.get(menos_vendido.nombre, 0):
                 menos_vendido = producto
         if numero_producto_vendido > 0:
             proVenta = total_ventas / numero_producto_vendido
@@ -157,6 +155,7 @@ class Tienda:
         print(f"Producto menos vendido: {menos_vendido.nombre}")
         print(f"Cantidad total de dinero obtenido por las ventas de la tienda: ${round(self.dinero, 2)}")
         print(f"Cantidad de dinero promedio obtenido por unidad de producto vendida: ${round(proVenta, 2)}")
+        input()
 class Usuario:
     def __init__(self,nombre,apellido,correo):
         self.nombre=nombre
@@ -169,14 +168,7 @@ usuario=Usuario("Admin","Admin","admin@gmail.com")
 tienda = Tienda()
 
 
-producto1 = Producto("Marcadores", "papeleria", 50, 10, 10)
-producto2 = Producto("Atún", "supermercado", 100, 20, 5)
-producto3 = Producto("Paracetamol", "drogueria", 80, 15, 3)
-producto4 = Producto("Graduador", "papeleria", 30, 5, 20)
-tienda.agregar_producto(producto1)
-tienda.agregar_producto(producto2)
-tienda.agregar_producto(producto3)
-tienda.agregar_producto(producto4)
+
 
 tienda.menuPrincipal(usuario)
 
